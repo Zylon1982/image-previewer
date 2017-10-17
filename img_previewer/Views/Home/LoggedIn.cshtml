@@ -8,17 +8,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     <link rel="stylesheet" href="~/Content/bootstrap-image-gallery.min.css">
     <title>LoggedIn</title>
 </head>
 <body>
 
-        <h2>Image Gallery</h2>
+    <h2 class="text-center">Image Gallery</h2>
 
-            @using (Html.BeginForm("LoggedIn", "Home", null, FormMethod.Get))
+    @using (Html.BeginForm("LoggedIn", "Home", null, FormMethod.Get))
             {
+        <div class="col-sm-2"></div>
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="input-group">
@@ -26,6 +27,7 @@
                                    name="filter"
                                    value="@ViewBag.filter"
                                    class="form-control"
+                                   id="imgSearch"
                                    style="display: inline"
                                    placeholder="Search" />
                             <span class="input-group-btn">
@@ -33,7 +35,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="pull-right col-lg-1">
+                    <div class="pull-center col-lg-1">
                         <a class="btn btn-success" data-modal="" href="/home/create" id="btnCreate">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
@@ -75,38 +77,45 @@
                         </div>
                     </div>
                 </div>
-
-                <div style="margin-top: 17px;">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8" id="imgGallery" style="margin-top: 17px;">
                     <div id="links">
                         @foreach (var item in Model.Content)
                         {
-                            <a href="@item.ImagePath" title="@item.Description" data-gallery>
-                                <img src="@item.ThumbPath" alt="@item.Description" class="img-rounded" style="margin-bottom:7px;" />
-                            </a>
+                            <div class="col-sm-2 img">
+                                <div class="thumbnail text-center">
+                                    <a href="@item.ImagePath" title="@item.Description" data-gallery>
+                                        <img src="@item.ThumbPath" alt="@item.Description" />
+                                        <div class="caption">
+                                            <p class="small">@item.Description</p>
+                                        </div>
+                                    </a>
+                                </div>
+                             </div>
                         }
                     </div>
-                </div>
+               </div>
+                            <div>
+                                @{
+                                    var grid = new WebGrid(
+                                                canPage: true,
+                                                rowsPerPage: Model.PageSize,
+                                                canSort: true,
+                                                ajaxUpdateContainerId: "grid");
 
-                <div>
-                    @{
-                        var grid = new WebGrid(
-                                    canPage: true,
-                                    rowsPerPage: Model.PageSize,
-                                    canSort: true,
-                                    ajaxUpdateContainerId: "grid");
+                                    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                                    grid.Pager(WebGridPagerModes.All);
 
-                        grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
-                        grid.Pager(WebGridPagerModes.All);
-
-                        @grid.GetHtml(htmlAttributes: new { id = "grid" },
+                                    @grid.GetHtml(htmlAttributes: new { id = "grid" },
                      fillEmptyRows: false,
                      mode: WebGridPagerModes.All,
                      columns: grid.Columns());
-                    }
-                </div>
-            }
-            @Scripts.Render("~/bundles/jquery")
-            <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-            <script src="~/Scripts/bootstrap-image-gallery.min.js"></script>
+                                }
+                            </div>
+                                    }
+                        @Scripts.Render("~/bundles/jquery")
+                        <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+                        <script src="~/Scripts/bootstrap-image-gallery.min.js"></script>
+                        <script src="~/Scripts/script.js"></script>
 </body>
 </html>
