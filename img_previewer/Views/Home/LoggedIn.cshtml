@@ -1,4 +1,5 @@
 ﻿@model img_previewer.Models.PagedList<img_previewer.Models.Photo>
+
 @{
     Layout = null;
 }
@@ -14,11 +15,15 @@
     <title>LoggedIn</title>
 </head>
 <body>
-
-    <h2 class="text-center">Image Gallery</h2>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <p class="nav navbar-left navbar-brand">Image Gallery</p>
+            <p class="nav navbar-brand navbar-right">Sign out <a href="index" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
+        </div>
+    </nav>
 
     @using (Html.BeginForm("LoggedIn", "Home", null, FormMethod.Get))
-            {
+    {
         <div class="col-sm-2"></div>
                 <div class="row">
                     <div class="col-sm-8">

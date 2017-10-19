@@ -18,7 +18,7 @@ namespace img_previewer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //Database.SetInitializer<TaskDbContext>(new DropCreateDatabaseIfModelChanges<TaskDbContext>());
+            Database.SetInitializer<TaskDbContext>(new DropCreateDatabaseIfModelChanges<TaskDbContext>());
             Database.SetInitializer<GalleryContext>(new DropCreateDatabaseIfModelChanges<GalleryContext>());
         }
     }

@@ -36,6 +36,7 @@ namespace img_previewer.Controllers
             return View();
         }
 
+        
         public ActionResult LoggedIn(string filter = null, int page = 1, int pageSize = 20)
         {
             using (GalleryContext db = new GalleryContext())
@@ -88,7 +89,7 @@ namespace img_previewer.Controllers
                     }
                 }
                 //ModelState.Clear();
-                //ViewBag.Message = account.UserName + " succesfully registered.";
+                ViewBag.Message = account.UserName + " succesfully registered.";
                 
             }
             return View();
